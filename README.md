@@ -7,21 +7,18 @@ A tool to convert sets of PBM images into monospaced BDF bitmap fonts.
 3. `pbmtobdf [width]x[height] [block]=[image.pbm]`
 
 And if you want to include multiple Unicode blocks,
-
 `pbmtobdf [width]x[height] [block]=[image.pbm],[block2]=[image2.pbm],[...]`
-
 ## FAQ
-Q: How can I convert [image format] to PBM?
-A: Use ImageMagick
+Q: How can I convert \[image format\] to PBM?
+A: Use [ImageMagick](https://imagemagick.org/index.php)
 ```bash
 for file in *.jpg; do
   base=$(basename $file .jpg)
   magick $file $base.pbm
 done
 ```
-
-Q: How can I convert BDF to [font format]?
-A: There are a variety of tools to do this, but my preferred ones are bdftopcf and fontforge
+Q: How can I convert BDF to \[font format\]?
+A: There are a variety of tools to do this, but my preferred ones are bdftopcf and [FontForge](https://fontforge.org/en-US/)
 ```bash
 bdftopcf -p1 -u1 -m -M -t -o pbmto.pcf pbmto.bdf
 fontforge -script build.pe pbmto.bdf
