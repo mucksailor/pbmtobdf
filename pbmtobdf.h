@@ -24,12 +24,12 @@
   "usage: pbm2bdf [-options] [width]x[height] [<block>],[<block>],[...]\n"     \
   "  -h, --help : this output\n"                                               \
   "  -b, --blocks : list available unicode blocks\n"                           \
-  "  -o, --output : <file> : output file\n"                                    \
+  "  -o, --output <file> : output file\n"                                    \
   "  -d, --descent <number> : descent\n"                                       \
   "  -f, --foundry <string> : foundry\n"                                       \
   "  -a, --family <string> : family\n"                                         \
   "  -w, --weight <string> : weight\n"                                         \
-  "  -s, --slant : <slant> : slant (r = roman, i = italic, o = oblique, ri = " \
+  "  -s, --slant <slant> : slant (r = roman, i = italic, o = oblique, ri = " \
   "reverse italic, ro = reverse oblique, ot = other)\n"                        \
   "  -e, --setwidth <string> : setwidth\n"                                     \
   "  -t, --style <string> : style\n"                                           \
