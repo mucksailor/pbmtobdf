@@ -21,7 +21,7 @@
 #define HASH_C 0x2b608
 
 #define HELP                                                                   \
-  "usage: pbm2bdf [-options] [width]x[height] [<block>],[<block>],[...]\n"     \
+  "usage: pbmtobdf [-options] [width]x[height] [<block>],[<block>],[...]\n"     \
   "  -h, --help : this output\n"                                               \
   "  -b, --blocks : list available unicode blocks\n"                           \
   "  -o, --output <file> : output file\n"                                    \
