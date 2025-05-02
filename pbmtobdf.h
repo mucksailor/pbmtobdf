@@ -1,14 +1,14 @@
-#define STR_INIT                                                               \
-  { 0, 0, NULL }
+#define STR_INIT {0, 0, NULL}
 
-#define VEC_INIT(S)                                                            \
-  { S, 0, 0, NULL }
+#define VEC_INIT(S) {S, 0, 0, NULL}
 
 #define A_INIT                                                                 \
-  {                                                                            \
-    0, 0, VEC_INIT(sizeof(Pair)), "pbm2.bdf", 0, "", "", "medium", UPRIGHT,    \
-        "normal", "", 0, 75, 75, CHAR_CELL, "iso10646", 1                      \
-  }
+  {0,          0,        VEC_INIT(sizeof(Pair)),                               \
+   "pbm2.bdf", 0,        "",                                                   \
+   "",         "medium", UPRIGHT,                                              \
+   "normal",   "",       0,                                                    \
+   75,         75,       CHAR_CELL,                                            \
+   "iso10646", 1}
 
 #define HASH_R 0x2b617
 #define HASH_I 0x2b60e
@@ -21,15 +21,15 @@
 #define HASH_C 0x2b608
 
 #define HELP                                                                   \
-  "usage: pbmtobdf [-options] [width]x[height] [<block>],[<block>],[...]\n"     \
+  "usage: pbmtobdf [-options] [width]x[height] [<block>],[<block>],[...]\n"    \
   "  -h, --help : this output\n"                                               \
   "  -b, --blocks : list available unicode blocks\n"                           \
-  "  -o, --output <file> : output file\n"                                    \
+  "  -o, --output <file> : output file\n"                                      \
   "  -d, --descent <number> : descent\n"                                       \
   "  -f, --foundry <string> : foundry\n"                                       \
   "  -a, --family <string> : family\n"                                         \
   "  -w, --weight <string> : weight\n"                                         \
-  "  -s, --slant <slant> : slant (r = roman, i = italic, o = oblique, ri = " \
+  "  -s, --slant <slant> : slant (r = roman, i = italic, o = oblique, ri = "   \
   "reverse italic, ro = reverse oblique, ot = other)\n"                        \
   "  -e, --setwidth <string> : setwidth\n"                                     \
   "  -t, --style <string> : style\n"                                           \
@@ -231,17 +231,11 @@
     0xfff0)                                                                    \
   X(SPECIALS, "specials", 0xfff0, 0xffff)
 
-#define PBM_INIT(W, H, L)                                                      \
-  { W, H, L, NULL }
+#define PBM_INIT(W, H, L) {W, H, L, NULL}
 
-#define GLYPH_INIT                                                             \
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL }
+#define GLYPH_INIT {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL}
 
-#define BLOCK_INIT(N)                                                          \
-  { N, (BlockRanges[(N)].end - BlockRanges[(N)].start), NULL }
+#define BLOCK_INIT(N) {N, (BlockRanges[(N)].end - BlockRanges[(N)].start), NULL}
 
 #define BDF_INIT                                                               \
-  {                                                                            \
-    "2.1", STR_INIT, 0, 75, 75, 0, 0, 0, 0, 2, 0, 0, 0,                        \
-        VEC_INIT(sizeof(Block))                                                \
-  }
+  {"2.1", STR_INIT, 0, 75, 75, 0, 0, 0, 0, 2, 0, 0, 0, VEC_INIT(sizeof(Block))}
