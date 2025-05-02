@@ -1,5 +1,6 @@
 # pbmtobdf
 A tool to convert sets of PBM images into monospaced BDF bitmap fonts.
+
 ## Usage
 1. Determine the width and height of your glyphs; it must be consistent across all glyphs.
 2. For every Unicode block you wish to include in your font, create a PBM image of a grid of glyphs where the number of glyphs is at least equal to the length of the relevant Unicode block. Extra glyphs will be omitted.
@@ -7,6 +8,7 @@ A tool to convert sets of PBM images into monospaced BDF bitmap fonts.
 
 And if you want to include multiple Unicode blocks,
 `pbmtobdf [width]x[height] [block]=[image.pbm],[block2]=[image2.pbm],[...]`
+
 ## FAQ
 Q: How can I convert \[image format\] to PBM?
 
