@@ -2,6 +2,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <getopt.h>
 #include <limits.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -110,6 +111,25 @@ typedef struct {
   unsigned chars;
   Vec blocks;
 } Bdf;
+
+static const struct option Options[] = {
+    {"help", no_argument, NULL, 'h'},
+    {"blocks", no_argument, NULL, 'b'},
+    {"output", required_argument, NULL, 'o'},
+    {"descent", required_argument, NULL, 'd'},
+    {"foundry", required_argument, NULL, 'f'},
+    {"family", required_argument, NULL, 'a'},
+    {"weight", required_argument, NULL, 'w'},
+    {"slant", required_argument, NULL, 's'},
+    {"setwidth", required_argument, NULL, 'e'},
+    {"style", required_argument, NULL, 't'},
+    {"point_size", required_argument, NULL, 'p'},
+    {"resolution_x", required_argument, NULL, 'x'},
+    {"resolution_y", required_argument, NULL, 'y'},
+    {"spacing", required_argument, NULL, 'c'},
+    {"registry", required_argument, NULL, 'r'},
+    {"encoding", required_argument, NULL, 'n'},
+    {NULL, 0, NULL, 0}};
 
 static Args A = A_INIT;
 
@@ -220,128 +240,115 @@ unsigned long hash(const char *s) {
 }
 
 State args_parse(int argc, char *argv[]) {
-  if (argc > 1) {
-    size_t i;
-    // TODO: string ones need checks
-    for (i = 1; i < argc && argv[i][0] == '-'; ++i)
-      switch (hash(argv[i])) {
-      case HASH__H:
-      case HASH___HELP:
-        printf(HELP);
-        return STOP;
-      case HASH__B:
-      case HASH___BLOCKS:
-        printf("blocks:\n");
-        for (size_t i = 0; i < SIZE_BLOCKS; ++i)
-          printf("  %s\n", BlockNames[i]);
-        return STOP;
-      case HASH__O:
-      case HASH___OUTPUT:
-        A.output = argv[++i];
-        break;
-      case HASH__D:
-      case HASH___DESCENT:
-        if (!sscanf(argv[++i], "%u", &A.descent)) {
-          printf("'-d, --descent' option requires a numeric argument");
-          return ERR;
-        }
-        break;
-      case HASH__F:
-      case HASH___FOUNDRY:
-        A.foundry = argv[++i];
-        break;
-      case HASH__A:
-      case HASH___FAMILY:
-        A.family = argv[++i];
-        break;
-      case HASH__W:
-      case HASH___WEIGHT:
-        A.weight = argv[++i];
-        break;
-      case HASH__S:
-      case HASH___SLANT:
-        switch (hash(argv[++i])) {
-        case HASH_R:
-          A.slant = UPRIGHT;
-          break;
-        case HASH_I:
-          A.slant = ITALIC;
-          break;
-        case HASH_O:
-          A.slant = OBLIQUE;
-          break;
-        case HASH_RI:
-          A.slant = REVERSE_ITALIC;
-          break;
-        case HASH_RO:
-          A.slant = REVERSE_OBLIQUE;
-          break;
-        case HASH_OT:
-          A.slant = OTHER;
-          break;
-        default:
-          printf("invalid argument for option '-s, --style'");
-          return ERR;
-        }
-        break;
-      case HASH__E:
-      case HASH___SETWIDTH:
-        A.setwidth = argv[++i];
-        break;
-      case HASH__T:
-      case HASH___STYLE:
-        A.style = argv[++i];
-        break;
-      case HASH__P:
-      case HASH___POINT_SIZE:
-        if (!sscanf(argv[++i], "%u", &A.point_size)) {
-          printf("'-p, --pont_size' option requires numeric argument");
-          return ERR;
-        }
-        break;
-      case HASH__X:
-      case HASH___RESOLUTION_X:
-        if (!sscanf(argv[++i], "%u", &A.resolution_x)) {
-          printf("'-x, --resolution_x' option requires numeric argument");
-          return ERR;
-        }
-        break;
-      case HASH__Y:
-      case HASH___RESOLUTION_Y:
-        if (!sscanf(argv[++i], "%u", &A.resolution_y)) {
-          printf("'-y, --resolution_y' option requires numeric argument");
-          return ERR;
-        }
-        break;
-      case HASH__C:
-      case HASH___SPACING:
-        switch (hash(argv[++i])) {
-        case HASH_M:
-          A.spacing = MONOSPACED;
-          break;
-        case HASH_C:
-          A.spacing = CHAR_CELL;
-          break;
-        default:
-          printf("invalid argument for option '-s, --style'");
-          return ERR;
-        }
-        break;
-      case HASH__R:
-      case HASH___REGISTRY:
-        A.charset_registry = argv[++i];
-        break;
-      case HASH__N:
-      case HASH___ENCODING:
-        if (!sscanf(argv[++i], "%u", &A.charset_encoding)) {
-          printf("'-n, --encoding' option requires numeric argument");
-          return ERR;
-        }
-        break;
-      default:
-        printf("invalid option, use pbm2bdf -h' for more info");
+  int opt, i;
+  while ((opt = getopt_long(argc, argv, "hbo:d:f:a:w:s:e:t:p:x:y:c:r:n:",
+                            Options, &i)) != -1) {
+    switch (opt) {
+    case 'h':
+      printf(HELP);
+      return STOP;
+    case 'b':
+      printf("blocks:\n");
+      for (size_t j = 0; j < SIZE_BLOCKS; ++j)
+        printf("  %s\n", BlockNames[j]);
+      return STOP;
+    case 'o':
+      A.output = optarg;
+      break;
+    case 'd':
+      if (!sscanf(optarg, "%u", &A.descent)) {
+        printf("'-d, --descent' requires numeric argument");
         return ERR;
       }
+      break;
+    case 'f':
+      A.foundry = optarg;
+      break;
+    case 'a':
+      A.family = optarg;
+      break;
+    case 'w':
+      A.weight = optarg;
+      break;
+    case 's':
+      // TODO
+      switch (hash(optarg)) {
+      case HASH_R:
+        A.slant = UPRIGHT;
+        break;
+      case HASH_I:
+        A.slant = ITALIC;
+        break;
+      case HASH_O:
+        A.slant = OBLIQUE;
+        break;
+      case HASH_RI:
+        A.slant = REVERSE_ITALIC;
+        break;
+      case HASH_RO:
+        A.slant = REVERSE_OBLIQUE;
+        break;
+      case HASH_OT:
+        A.slant = OTHER;
+        break;
+      default:
+        printf("invalid argument for '-s, --style'");
+        return ERR;
+      }
+      break;
+    case 'e':
+      A.setwidth = optarg;
+      break;
+    case 't':
+      A.style = optarg;
+      break;
+    case 'p':
+      if (!sscanf(optarg, "%u", &A.point_size)) {
+        printf("'-p, --point_size' requires numeric argument");
+        return ERR;
+      }
+      break;
+    case 'x':
+      if (!sscanf(optarg, "%u", &A.resolution_x)) {
+        printf("'-x, --resolution_x' requires numeric argument");
+        return ERR;
+      }
+      break;
+    case 'y':
+      if (!sscanf(optarg, "%u", &A.resolution_y)) {
+        printf("'-y, --resolution_y' requires numeric argument");
+        return ERR;
+      }
+      break;
+    case 'c':
+      switch (hash(optarg)) {
+      case HASH_M:
+        A.spacing = MONOSPACED;
+        break;
+      case HASH_C:
+        A.spacing = CHAR_CELL;
+        break;
+      default:
+        printf("invalid argument for '-s, --style'");
+        return ERR;
+      }
+      break;
+    case 'r':
+      A.charset_registry = optarg;
+      break;
+    case 'n':
+      if (!sscanf(optarg, "%u", &A.charset_encoding)) {
+        printf("'-n, --encoding' requires numeric argument");
+        return ERR;
+      }
+      break;
+    default:
+      printf("invalid option, run '%s -h' for help", argv[0]);
+      return ERR;
+    }
+  }
+  if (argc > optind) {
+    i = optind;
     if (!sscanf(argv[i++], "%ux%u", &A.w, &A.h)) {
       printf("invalid dimensions; specify as '[width]x[height]'");
       return ERR;
@@ -352,9 +359,9 @@ State args_parse(int argc, char *argv[]) {
       char *path_s = tok;
       unsigned id;
       // TODO: hashing would still be faster, but this is easier
-      for (size_t i = 0; i < SIZE_BLOCKS; ++i)
-        if (strcmp(name_s, BlockNames[i]) == 0) {
-          id = i;
+      for (size_t j = 0; j < SIZE_BLOCKS; ++j)
+        if (strcmp(name_s, BlockNames[j]) == 0) {
+          id = j;
           break;
         }
       Str path = STR_INIT;

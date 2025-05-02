@@ -10,39 +10,6 @@
         "normal", "", 0, 75, 75, CHAR_CELL, "iso10646", 1                      \
   }
 
-#define HASH__H 0x59707a
-#define HASH___HELP 0x65274403b28
-#define HASH__B 0x597074
-#define HASH___BLOCKS 0x1ae4c077bcd8fd
-#define HASH__O 0x597081
-#define HASH___OUTPUT 0x1ae4c096b5bc30
-#define HASH__D 0x597076
-#define HASH___DESCENT 0x3777ccff9409e05
-#define HASH__F 0x597078
-#define HASH___FOUNDRY 0x3777cd0aab2e346
-#define HASH__A 0x597073
-#define HASH___FAMILY 0x1ae4c080496ee1
-#define HASH__W 0x597089
-#define HASH___WEIGHT 0x1ae4c0a8374907
-#define HASH__S 0x597085
-#define HASH___SLANT 0xd0a0fd1255c1
-#define HASH__E 0x597077
-#define HASH___SETWIDTH 0x72671763fcf0f1eb
-#define HASH__T 0x597086
-#define HASH___STYLE 0xd0a0fd171e90
-#define HASH__P 0x597082
-#define HASH___POINT_SIZE 0xa88a0e0fbb5f5343
-#define HASH__X 0x59708a
-#define HASH___RESOLUTION_X 0xf4782df41770d78a
-#define HASH__Y 0x59708b
-#define HASH___RESOLUTION_Y 0xf4782df41770d78b
-#define HASH__C 0x597075
-#define HASH___SPACING 0x3777cd4944d4424
-#define HASH__R 0x597084
-#define HASH___REGISTRY 0x72671759f1647578
-#define HASH__N 0x597080
-#define HASH___ENCODING 0x726716db9de85046
-
 #define HASH_R 0x2b617
 #define HASH_I 0x2b60e
 #define HASH_O 0x2b614
