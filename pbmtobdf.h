@@ -33,9 +33,9 @@
   "reverse italic, ro = reverse oblique, ot = other)\n"                        \
   "  -e, --setwidth <string> : setwidth\n"                                     \
   "  -t, --style <string> : style\n"                                           \
-  "  -p, --point_size <number> : point size\n"                                 \
-  "  -x, --resolution_x <number> : horizontal resolution\n"                    \
-  "  -y, --resolution_y <number> : vertical resolution\n"                      \
+  "  -p, --point-size <number> : point size\n"                                 \
+  "  -x, --resolution-x <number> : horizontal resolution\n"                    \
+  "  -y, --resolution-y <number> : vertical resolution\n"                      \
   "  -c, --spacing <spacing> : spacing (m = monospaced, c = char cell)\n"      \
   "  -r, --registry <string> : charset registry\n"                             \
   "  -e, --encoding <number> : charset encoding\n"                             \

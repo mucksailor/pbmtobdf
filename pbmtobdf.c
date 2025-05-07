@@ -123,9 +123,9 @@ static const struct option Options[] = {
     {"slant", required_argument, NULL, 's'},
     {"setwidth", required_argument, NULL, 'e'},
     {"style", required_argument, NULL, 't'},
-    {"point_size", required_argument, NULL, 'p'},
-    {"resolution_x", required_argument, NULL, 'x'},
-    {"resolution_y", required_argument, NULL, 'y'},
+    {"point-size", required_argument, NULL, 'p'},
+    {"resolution-x", required_argument, NULL, 'x'},
+    {"resolution-y", required_argument, NULL, 'y'},
     {"spacing", required_argument, NULL, 'c'},
     {"registry", required_argument, NULL, 'r'},
     {"encoding", required_argument, NULL, 'n'},
@@ -568,7 +568,7 @@ Bdf bdf_new() {
   str_fmt(&bdf.font, "-%s-%s-%s-%s-%s-%s-%u-%u-%u-%u-%c-%u-%s-%u", A.foundry,
           A.family, A.weight, slant, A.setwidth, A.style, A.h, point_size,
           A.resolution_x, A.resolution_y, spacing,
-          (unsigned)(A.point_size * (float)(A.w / A.h)), A.charset_registry,
+          (unsigned)(A.point_size * ((float)A.w / A.h)), A.charset_registry,
           A.charset_encoding);
   free(slant);
   bdf.size_pt = point_size;
